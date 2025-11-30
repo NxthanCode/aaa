@@ -1,214 +1,666 @@
+/* Base Styles */
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    transition: background-color 0.3s, color 0.3s;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    min-height: 100vh;
 }
 
-.chat-container {
-    width: 90%;
-    max-width: 1200px;
-    height: 90vh;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    display: flex;
-    overflow: hidden;
-}
-
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.modal-content {
-    background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
-}
-
-.modal h2 {
-    margin-bottom: 1rem;
+.light-theme {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #333;
 }
 
-.modal input {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    margin-bottom: 1rem;
+.dark-theme {
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    color: #fff;
 }
 
-.modal button {
-    width: 100%;
-    padding: 12px;
-    background: #667eea;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s;
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
 }
 
-.modal button:hover {
-    background: #5a6fd8;
+.dark-theme .container {
+    background: rgba(44, 62, 80, 0.95);
 }
 
-/* Sidebar */
-.sidebar {
-    width: 300px;
-    background: #2c3e50;
-    color: white;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
+.screen {
+    display: none;
 }
 
-.sidebar h2 {
-    margin-bottom: 20px;
-    color: #ecf0f1;
+.active {
+    display: block;
 }
 
-.users-list {
-    flex: 1;
-    overflow-y: auto;
-}
-
-.user-item {
-    padding: 10px;
-    margin: 5px 0;
-    background: #34495e;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-}
-
-.user-status {
-    width: 10px;
-    height: 10px;
-    background: #2ecc71;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-/* Chat Area */
-.chat-area {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.chat-header {
-    background: #34495e;
-    color: white;
-    padding: 20px;
+/* Login Screen */
+.login-header {
     text-align: center;
+    margin-bottom: 40px;
 }
 
-.messages-container {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-    background: #f8f9fa;
+.login-header i {
+    color: #667eea;
+    margin-bottom: 20px;
 }
 
-.message {
-    margin-bottom: 15px;
-    padding: 12px;
-    border-radius: 10px;
-    max-width: 70%;
-    word-wrap: break-word;
+.login-header h1 {
+    margin: 10px 0;
+    color: #333;
+    font-size: 2.5em;
 }
 
-.message.own {
-    background: #667eea;
-    color: white;
-    margin-left: auto;
+.dark-theme .login-header h1 {
+    color: #fff;
 }
 
-.message.other {
-    background: white;
-    border: 1px solid #ddd;
+.login-header p {
+    color: #666;
+    font-size: 1.1em;
 }
 
-.message-header {
-    font-size: 12px;
-    margin-bottom: 5px;
-    opacity: 0.8;
+.dark-theme .login-header p {
+    color: #ccc;
 }
 
-.message-content {
-    font-size: 14px;
+.login-form {
+    max-width: 400px;
+    margin: 0 auto;
 }
 
-.input-area {
-    padding: 20px;
-    background: white;
-    border-top: 1px solid #ddd;
-    display: flex;
-    gap: 10px;
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
 }
 
-.message-input {
-    flex: 1;
-    padding: 12px;
-    border: 2px solid #ddd;
-    border-radius: 25px;
-    font-size: 14px;
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #667eea;
+    font-size: 1.2em;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px 15px 15px 50px;
+    border: 2px solid #e1e5ee;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
     outline: none;
-}
-
-.message-input:focus {
     border-color: #667eea;
 }
 
-.send-button {
-    padding: 12px 24px;
-    background: #667eea;
+.login-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
     color: white;
     border: none;
-    border-radius: 25px;
+    border-radius: 12px;
+    font-size: 18px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: transform 0.2s;
 }
 
-.send-button:hover {
-    background: #5a6fd8;
+.login-btn:hover {
+    transform: translateY(-2px);
 }
 
-.send-button:disabled {
-    background: #ccc;
-    cursor: not-allowed;
+.login-btn i {
+    margin-right: 10px;
 }
 
-.notification {
-    padding: 10px;
-    margin: 5px 0;
-    background: #ffeaa7;
-    border-radius: 5px;
+/* Screen Headers */
+.screen-header {
     text-align: center;
-    font-size: 12px;
-    color: #2d3436;
+    margin-bottom: 30px;
+}
+
+.screen-header i {
+    font-size: 2em;
+    color: #667eea;
+    margin-bottom: 15px;
+}
+
+.screen-header h1 {
+    margin: 0;
+    color: #333;
+}
+
+.dark-theme .screen-header h1 {
+    color: #fff;
+}
+
+/* User List */
+.user-list {
+    margin: 30px 0;
+    padding: 25px;
+    border: 2px dashed #ddd;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.dark-theme .user-list {
+    border-color: #555;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.user-list h3 {
+    margin-top: 0;
+    color: #667eea;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    margin: 10px 0;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+    transition: transform 0.2s;
+}
+
+.user-item:hover {
+    transform: translateX(5px);
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    color: white;
+    font-weight: bold;
+}
+
+.user-info {
+    flex: 1;
+}
+
+.user-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.dark-theme .user-name {
+    color: #fff;
+}
+
+.host-badge {
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #000;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    margin-left: 10px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Score Board */
+.score-board {
+    margin: 30px 0;
+    padding: 25px;
+    border: 2px solid #ddd;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.dark-theme .score-board {
+    border-color: #555;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.score-board h3 {
+    margin-top: 0;
+    color: #667eea;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.score-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin: 12px 0;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+}
+
+.dark-theme .score-item {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.score-item.winner {
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    border-color: #ffc107;
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+.score-item .user-avatar {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2em;
+}
+
+.score-details {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.score-value {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.score-item.winner .score-value {
+    color: #000;
+}
+
+/* Options */
+.option {
+    padding: 18px 20px;
+    margin: 12px 0;
+    border: 2px solid #e1e5ee;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.1em;
+}
+
+.option:hover {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.05);
+    transform: translateY(-2px);
+}
+
+.option.selected {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+.option.correct {
+    background: #4CAF50;
+    border-color: #4CAF50;
+    color: white;
+}
+
+.option.incorrect {
+    background: #f44336;
+    border-color: #f44336;
+    color: white;
+}
+
+.option.disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.option-letter {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+/* Buttons */
+button {
+    padding: 15px 25px;
+    margin: 10px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.start-btn {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+}
+
+.settings-btn {
+    background: linear-gradient(135deg, #6c757d, #adb5bd);
+    color: white;
+}
+
+.next-btn {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+}
+
+.reset-btn {
+    background: linear-gradient(135deg, #fd7e14, #e8590c);
+    color: white;
+}
+
+.lobby-btn {
+    background: linear-gradient(135deg, #6f42c1, #5a2d9c);
+    color: white;
+}
+
+/* Host Controls */
+.host-controls {
+    margin: 30px 0;
+    padding: 25px;
+    border: 3px solid #667eea;
+    border-radius: 15px;
+    background: rgba(102, 126, 234, 0.1);
+    text-align: center;
+}
+
+.host-controls h3 {
+    margin-top: 0;
+    color: #667eea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.setting-group {
+    margin: 20px 0;
+    text-align: left;
+}
+
+.setting-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.dark-theme .setting-group label {
+    color: #fff;
+}
+
+select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e1e5ee;
+    border-radius: 8px;
+    font-size: 16px;
+    background: white;
+}
+
+.dark-theme select {
+    background: #333;
+    color: white;
+    border-color: #555;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Game Info */
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    margin: 25px 0;
+    padding: 20px;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1em;
+}
+
+/* Question Container */
+.question-container {
+    margin: 25px 0;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    border: 2px solid #e1e5ee;
+}
+
+.dark-theme .question-container {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #555;
+}
+
+#question-text {
+    margin-bottom: 25px;
+    font-size: 1.4em;
+    line-height: 1.5;
+    color: #333;
+}
+
+.dark-theme #question-text {
+    color: #fff;
+}
+
+/* Answer Feedback */
+.answer-feedback {
+    margin: 25px 0;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2em;
+    min-height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.correct-feedback {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+}
+
+.incorrect-feedback {
+    background: linear-gradient(135deg, #f44336, #da190b);
+    color: white;
+}
+
+/* Waiting Message */
+.waiting-message {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+    margin: 30px 0;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    font-size: 1.1em;
+}
+
+.dark-theme .waiting-message {
+    color: #ccc;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        padding: 20px;
+    }
+    
+    .game-info {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+    
+    button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+#timer-container {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+#timer {
+    transition: color 0.3s;
+}
+
+/* Live Scores Styles */
+.live-scores {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    border: 2px solid #667eea;
+}
+
+.dark-theme .live-scores {
+    background: rgba(44, 62, 80, 0.95);
+    border-color: #764ba2;
+}
+
+.scores-header {
+    font-weight: bold;
+    color: #667eea;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9em;
+}
+
+.score-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    font-size: 0.9em;
+    border-bottom: 1px solid #eee;
+}
+
+.dark-theme .score-line {
+    border-bottom-color: #555;
+}
+
+.score-line:last-child {
+    border-bottom: none;
+}
+
+.score-line.current-user {
+    font-weight: bold;
+    color: #667eea;
+}
+
+.score-name {
+    flex: 1;
+}
+
+.score-points {
+    font-weight: bold;
+    color: #28a745;
+}
+
+/* Question Results */
+.time-up-feedback {
+    background: linear-gradient(135deg, #6c757d, #495057);
+    color: white;
+}
+
+/* Rank Badges */
+.rank-badge {
+    background: #667eea;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.8em;
+    margin-left: 8px;
+}
+
+.trophy-icon {
+    color: #ffd700;
+    margin-left: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .live-scores {
+        position: static;
+        margin: 15px 0;
+        min-width: auto;
+    }
+    
+    .game-info {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .info-item {
+        flex: 1;
+        min-width: 120px;
+    }
 }
