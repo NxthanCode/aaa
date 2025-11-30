@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>server test yo yo yo</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+    <div id="usernameModal" class="modal">
+        <div class="modal-content">
+            <h2>Choose Your Username</h2>
+            <input type="text" id="usernameInput" placeholder="Enter your username" maxlength="20">
+            <button onclick="setUsername()">Join Chat</button>
+        </div>
+    </div>
+    <div id="chatContainer" class="chat-container" style="display: none;">
+        <div class="sidebar">
+            <h2>Online Users</h2>
+            <div id="usersList" class="users-list">
+            </div>
+        </div>
+        <div class="chat-area">
+            <div class="chat-header">
+                <h2>Chat</h2>
+            </div>
+            <div id="messagesContainer" class="messages-container">
+            </div>
+            <div class="input-area">
+                <input type="text" id="messageInput" class="message-input" placeholder="Type your message..." disabled>
+                <button id="sendButton" class="send-button" onclick="sendMessage()" disabled>Send</button>
+            </div>
+        </div>
+    </div>
+    <script src="/index.js"></script>
+</body>
+</html>
