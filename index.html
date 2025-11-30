@@ -3,36 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>server test yo yo yo</title>
-    <link rel="stylesheet" href="/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+    <title>Quizzy</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 </head>
-<body>
-    <div id="usernameModal" class="modal">
-        <div class="modal-content">
-            <h2>Choose Your Username</h2>
-            <input type="text" id="usernameInput" placeholder="Enter your username" maxlength="20">
-            <button onclick="setUsername()">Join Chat</button>
+<body class="light-theme">
+    <div class="container">
+
+        <div id="login-screen" class="screen active">
+            <div class="login-header">
+                <i class="fas fa-brain fa-3x"></i>
+                <h1>Quizzy</h1>
+                <p><i class = "fa-brands fa-discord"></i>141at</p>
+            </div>
+            <div class="login-form">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username-input" placeholder="enter your name" maxlength="20">
+                </div>
+                <button onclick="setUsername()" class="login-btn">
+                    <i class="fas fa-play"></i> join game
+                </button>
+            </div>
         </div>
+
+        <div id="lobby-screen" class="screen">
+            <div class="screen-header">
+                <i class="fas fa-users"></i>
+                <h1>lobby</h1>
+            </div>
+            <div id="user-list" class="user-list">
+                <h3><i class="fas fa-user-friends"></i> Players</h3>
+            </div>
+
+            <div id="waiting-message" class="waiting-message" style="display:block;">
+                <i class="fas fa-hourglass-half"></i> waiting for host to start the game...
+            </div>
+
+            <div id="host-controls" class="host-controls" style="display:none;">
+                <h3><i class="fas fa-crown"></i> host setts</h3>
+                <div class="setting-group">
+                    <label><i class="fas fa-question-circle"></i> amount of questions:</label>
+                    <select id="question-count">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label><i class="fas fa-palette"></i> theme</label>
+                    <select id="theme-select">
+                        <option value="light">light</option>
+                        <option value="dark">dark</option>
+                    </select>
+                </div>
+                <div class="button-group">
+                    <button onclick="updateGameSettings()" class="settings-btn">
+                        <i class="fas fa-cog"></i> update setts
+                    </button>
+                    <button onclick="startGame()" class="start-btn">
+                        <i class="fas fa-rocket"></i> start
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="game-screen" class="screen">
+            <div class="screen-header">
+                <i class="fas fa-gamepad"></i>
+                <h1>Quizzy</h1>
+            </div>
+
+            <div id="game-info" class="game-info">
+                <span class="info-item">
+                    <i class="fas fa-list-ol"></i>
+                    question: <span id="current-question">1</span>/<span id="total-questions">5</span>
+                </span>
+            </div>
+
+            <div id="question-container" class="question-container">
+                <h2 id="question-text"></h2>
+                <div id="options-container" class="options-container"></div>
+            </div>
+
+            <div id="answer-feedback" class="answer-feedback"></div>
+
+            <div id="host-game-controls" class="host-controls" style="display:none;">
+                <button onclick="nextQuestion()" class="next-btn">
+                    <i class="fas fa-arrow-right"></i> next question
+                </button>
+            </div>
+        </div>
+
+        <div id="results-screen" class="screen">
+            <div class="screen-header">
+                <i class="fas fa-trophy"></i>
+                <h1>results</h1>
+            </div>
+
+            <div id="score-board" class="score-board">
+                <h3><i class="fas fa-chart-bar"></i> leaderboard</h3>
+            </div>
+
+            <div id="host-reset-controls" class="host-controls" style="display:none;">
+            </div>
+
+            <button onclick="returnToLobby()" class="lobby-btn">
+                <i class="fas fa-home"></i> return to lobby
+            </button>
+        </div>
+
     </div>
-    <div id="chatContainer" class="chat-container" style="display: none;">
-        <div class="sidebar">
-            <h2>Online Users</h2>
-            <div id="usersList" class="users-list">
-            </div>
-        </div>
-        <div class="chat-area">
-            <div class="chat-header">
-                <h2>Chat</h2>
-            </div>
-            <div id="messagesContainer" class="messages-container">
-            </div>
-            <div class="input-area">
-                <input type="text" id="messageInput" class="message-input" placeholder="Type your message..." disabled>
-                <button id="sendButton" class="send-button" onclick="sendMessage()" disabled>Send</button>
-            </div>
-        </div>
-    </div>
-    <script src="/index.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
